@@ -36,7 +36,9 @@ class LabelChecker {
     script.echo "The type is"
     script.echo response.getClass().getName()
     script.echo "That was the type"
-    def labels = script.readJSON(text: groovy.json.JsonOutput.toJson(response))*.name
+    def json = script.readJSON(text: response)
+    script.echo "have the json"
+    def labels = json*.name
     script.echo("****The labels are")
     script.echo(labels)
     script.echo("****The labels are")
