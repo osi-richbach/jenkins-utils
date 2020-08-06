@@ -40,6 +40,8 @@ class LabelChecker {
     script.echo(labels.getClass().getName())
     script.echo("****The labels are")
     script.echo(labels[0])
+    script.echo(labels[1])
+    script.echo(labels[2])
     labels
   }
 }
