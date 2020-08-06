@@ -30,6 +30,7 @@ class LabelChecker {
     String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
 
     get.setRequestProperty ("Authorization", basicAuth);
+    get.setRequestProperty ("User-Agent", "cwds/1.0 ( jenkins )")
     script.echo "******************I AM HERE"
     def response = get.getInputStream().getText()
     script.echo( response )
