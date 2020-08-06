@@ -15,7 +15,7 @@ class LabelChecker {
     new VersionIncrement().increment(labels)
   }
 
-  def getPRLabelsOrig(projectName, credentials) {
+  def getPRLabels(projectName, credentials) {
     //def pullRequestUrl = "https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels"
     //def response = pullRequestUrl.toURL().text
 
@@ -25,7 +25,7 @@ class LabelChecker {
     def get = new URL("https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels").openConnection();
     //get.setRequestProperty ("Authorization", "token: 95bc969a8a27b7c8987e6bb82e164e61e35f6cbd")
 
-    String userCredentials = "osi-richbach:a05898aa2929326e2ccecac57b80f4aeefcec3bd";
+    String userCredentials = "cwds-jenkins-dev:${credentials}";
     String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
 
     get.setRequestProperty ("Authorization", basicAuth);
@@ -37,7 +37,7 @@ class LabelChecker {
     labels
   }
 
-  def getPRLabels(projectName, stuff) {
+  def getPRLabelsOld(projectName, stuff) {
     def get = new URL("https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels").openConnection();
     get.setRequestProperty ("Authorization", "token: 0affafa3c9e9b2aa4fe7f3b976e8a33478113586")
 
