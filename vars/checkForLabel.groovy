@@ -2,7 +2,7 @@
 
 import gov.ca.cwds.jenkins.semver.LabelChecker
 
-def call(String projectName, String credentials, List tagPrefixes = []) {
+def call(String projectName, List tagPrefixes = [], username = '', accesskey = '') {
   labelChecker = new LabelChecker(this)
-  labelChecker.check(projectName, credentials, tagPrefixes)
+  labelChecker.check(projectName, tagPrefixes, username, accesskey)
 }

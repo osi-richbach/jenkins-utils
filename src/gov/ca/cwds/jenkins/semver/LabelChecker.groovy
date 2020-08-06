@@ -9,7 +9,7 @@ class LabelChecker {
     this.script = script
   }
 
-  def check(projectName, credentials, List tagPrefixes = []) {
+  def check(projectName, List tagPrefixes = [], username = '', credentials = '' ) {
     List labels = getPRLabels(projectName, credentials)
     if (tagPrefixes) {
       new TagPrefixFinder(tagPrefixes).find(labels)
@@ -17,18 +17,19 @@ class LabelChecker {
     new VersionIncrement().increment(labels)
   }
 
-  def getPRLabels(projectName, credentials) {
+  def getPRLabels(projectName, username, accesskey) {
     def get = new URL("https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels").openConnection();
-
-    String userCredentials = "cwds-jenkins-dev:${credentials}";
-    String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
-
-    get.setRequestProperty ("Authorization", basicAuth);
-    get.setRequestProperty ("User-Agent", "cwds/1.0 ( jenkins )")
     
+    if (username?.trim() && accesskey?.trim()) {
+      String userCredentials = "${username}:${accesskey}";
+      String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
+      get.setRequestProperty ("Authorization", basicAuth);
+    }
+    get.setRequestProperty ("User-Agent", "cwds/1.0 ( jenkins )")
     def response = get.getInputStream().getText()
     def jsonSlurper = new JsonSlurper()
     def labels = jsonSlurper.parseText(response)*.name
+    
     labels
   }
 }
