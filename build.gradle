@@ -1,0 +1,44 @@
+apply plugin: "groovy"
+apply plugin: "codenarc"
+
+version = "0.1"
+description = "Jenkins Pipeline Utils CWS-CARES"
+
+sourceCompatibility = 1.8
+
+sourceSets {
+  main.groovy.srcDirs = ['src/']
+  test.groovy.srcDirs = ['test/']
+}
+
+test {
+  testLogging {
+    exceptionFormat = 'full'
+    events "PASSED", "FAILED", "SKIPPED"
+  }
+}
+
+codenarc {
+  toolVersion = "1.2.1"
+  configFile = rootProject.file("config/codenarc/rules.groovy")
+}
+
+repositories {
+  // Spock releases are available from Maven Central
+  mavenCentral()
+  // Spock snapshots are available from the Sonatype OSS snapshot repository
+  maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+dependencies {
+  // mandatory dependencies for using Spock
+  compile 'com.cloudbees:groovy-cps:1.22'
+  compile "org.codehaus.groovy:groovy-all:2.4.15"
+  compile group: 'org.gmetrics', name: 'GMetrics', version: '1.0'
+  testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
+
+  // optional dependencies for using Spock
+  testCompile "org.hamcrest:hamcrest-core:1.3" // only necessary if Hamcrest matchers are used
+  testRuntime "net.bytebuddy:byte-buddy:1.6.5" // allows mocking of classes (in addition to interfaces)
+  testRuntime "org.objenesis:objenesis:2.5.1" // allows mocking of classes without default constructor (together with CGLIB)
+}
