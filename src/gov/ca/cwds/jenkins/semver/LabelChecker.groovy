@@ -27,21 +27,8 @@ class LabelChecker {
     get.setRequestProperty ("User-Agent", "cwds/1.0 ( jenkins )")
     
     def response = get.getInputStream().getText()
-    script.echo "******************I AM HERE ${response}"
-    script.echo "The type is"
-    script.echo response.getClass().getName()
-    script.echo "That was the type"
     def jsonSlurper = new JsonSlurper()
-    Object json = jsonSlurper.parseText(response)
-    //def json = script.readJSON(text: response)
-    script.echo "have the json"
-    def labels = json*.name
-    script.echo("****The labels are")
-    script.echo(labels.getClass().getName())
-    script.echo("****The labels are")
-    script.echo(labels[0])
-    script.echo(labels[1])
-    script.echo(labels[2])
+    def labels = jsonSlurper.parseText(response)*.name
     labels
   }
 }
