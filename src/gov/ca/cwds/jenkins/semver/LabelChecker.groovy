@@ -15,13 +15,12 @@ class LabelChecker {
     new VersionIncrement().increment(labels)
   }
 
-  def getPRLabels(projectName, credentials) {
+  def getPRLabelsOrig(projectName, credentials) {
     //def pullRequestUrl = "https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels"
     //def response = pullRequestUrl.toURL().text
 
     // def labels = script.readJSON(text: response)*.name
     // labels
-
 
     def get = new URL("https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels").openConnection();
     //get.setRequestProperty ("Authorization", "token: 95bc969a8a27b7c8987e6bb82e164e61e35f6cbd")
@@ -37,4 +36,17 @@ class LabelChecker {
     def labels = script.readJSON(text: response)*.name
     labels
   }
+
+  def getPRLabels(projectName, credentials) {
+    def get = new URL("https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels").openConnection();
+    get.setRequestProperty ("Authorization", "token: 95bc969a8a27b7c8987e6bb82e164e61e35f6cbd")
+
+    get.setRequestProperty ("User-Agent", "cwds/1.0 ( jenkins )")
+    script.echo "******************I AM HERE with ${credentials}"
+    def response = get.getInputStream().getText()
+    script.echo( "THE RESPONSE IS ${response}" )
+    def labels = script.readJSON(text: response)*.name
+    labels
+  }
+
 }
