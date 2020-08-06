@@ -1,5 +1,7 @@
 package gov.ca.cwds.jenkins.semver
 
+import groovy.json.JsonSlurper 
+
 class LabelChecker {
   def script
 
@@ -16,14 +18,7 @@ class LabelChecker {
   }
 
   def getPRLabels(projectName, credentials) {
-    //def pullRequestUrl = "https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels"
-    //def response = pullRequestUrl.toURL().text
-
-    // def labels = script.readJSON(text: response)*.name
-    // labels
-
     def get = new URL("https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels").openConnection();
-    //get.setRequestProperty ("Authorization", "token: 95bc969a8a27b7c8987e6bb82e164e61e35f6cbd")
 
     String userCredentials = "cwds-jenkins-dev:${credentials}";
     String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
@@ -36,7 +31,9 @@ class LabelChecker {
     script.echo "The type is"
     script.echo response.getClass().getName()
     script.echo "That was the type"
-    def json = script.readJSON(text: response)
+    def jsonSlurper = new JsonSlurper()
+    Object json = jsonSlurper.parseText(response)
+    //def json = script.readJSON(text: response)
     script.echo "have the json"
     def labels = json*.name
     script.echo("****The labels are")
