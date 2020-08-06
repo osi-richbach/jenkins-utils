@@ -16,22 +16,19 @@ class LabelChecker {
   }
 
   def getPRLabels(projectName, credentials) {
-    script.withCredentials([string(credentialsId: '433ac100-b3c2-4519-b4d6-207c029a103b', variable: 'TOKEN')]) {
-      //def pullRequestUrl = "https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels"
-      //def response = pullRequestUrl.toURL().text
+    //def pullRequestUrl = "https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels"
+    //def response = pullRequestUrl.toURL().text
 
-      // def labels = script.readJSON(text: response)*.name
-      // labels
+    // def labels = script.readJSON(text: response)*.name
+    // labels
 
 
-      def get = new URL("https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels").openConnection();
-      get.setRequestProperty ("Authorization", "token: ${credentials}")
-    
-      def response = get.getInputStream().getText()
+    def get = new URL("https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels").openConnection();
+    get.setRequestProperty ("Authorization", "token: ${credentials}")
+  
+    def response = get.getInputStream().getText()
 
-      def labels = script.readJSON(text: response)*.name
-      labels
-
-    }
+    def labels = script.readJSON(text: response)*.name
+    labels
   }
 }
