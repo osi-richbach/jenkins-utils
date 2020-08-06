@@ -9,8 +9,8 @@ class LabelChecker {
     this.script = script
   }
 
-  def check(projectName, List tagPrefixes = [], username = '', credentials = '' ) {
-    List labels = getPRLabels(projectName, credentials)
+  def check(projectName, List tagPrefixes = [], username = '', accesskey = '' ) {
+    List labels = getPRLabels(projectName, username, accesskey)
     if (tagPrefixes) {
       new TagPrefixFinder(tagPrefixes).find(labels)
     }
