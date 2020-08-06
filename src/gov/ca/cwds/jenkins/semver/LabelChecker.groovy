@@ -30,10 +30,14 @@ class LabelChecker {
 
     get.setRequestProperty ("Authorization", basicAuth);
     get.setRequestProperty ("User-Agent", "cwds/1.0 ( jenkins )")
-    script.echo "******************I AM HERE $credentials"
+    
     def response = get.getInputStream().getText()
+    script.echo "******************I AM HERE ${response}"
     script.echo( response )
     def labels = script.readJSON(text: response)*.name
+    script.echo("****The labels are")
+    script.echo(labels)
+    script.echo("****The labels are")
     labels
   }
 
