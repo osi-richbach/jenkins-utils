@@ -3,7 +3,7 @@ package gov.ca.cwds.jenkins.semver
 class LabelChecker {
   def script
 
-  LabelChecker(pipeline, script) {
+  LabelChecker(script) {
     this.script = script
   }
 
