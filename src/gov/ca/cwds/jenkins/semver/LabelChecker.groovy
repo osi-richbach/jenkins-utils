@@ -16,7 +16,7 @@ class LabelChecker {
   }
 
   def getPRLabels(projectName) {
-    pipeline.withCredentials([string(credentialsId: '433ac100-b3c2-4519-b4d6-207c029a103b', variable: 'TOKEN')]) {
+    script.withCredentials([string(credentialsId: '433ac100-b3c2-4519-b4d6-207c029a103b', variable: 'TOKEN')]) {
       //def pullRequestUrl = "https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels"
       //def response = pullRequestUrl.toURL().text
 
