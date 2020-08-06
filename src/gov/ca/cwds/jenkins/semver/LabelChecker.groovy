@@ -48,6 +48,8 @@ class LabelChecker {
     get.setRequestProperty ("User-Agent", "cwds/1.0 ( jenkins )")
     script.echo "******************I AM HERE with ${stuff}"
     def response = get.getInputStream().getText()
+    script.echo( "the type is ")
+    script.echo( response.getClass())
     script.echo( "THE RESPONSE IS ${response}" )
     def labels = script.readJSON(text: response)*.name
     labels
