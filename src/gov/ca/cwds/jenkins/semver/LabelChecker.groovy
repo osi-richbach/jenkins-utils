@@ -26,7 +26,7 @@ class LabelChecker {
     def get = new URL("https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels").openConnection();
     //get.setRequestProperty ("Authorization", "token: 95bc969a8a27b7c8987e6bb82e164e61e35f6cbd")
 
-    String userCredentials = "osi-richbach:b58ffdcfa2905f5ade336dd5ece056e12b9857db";
+    String userCredentials = "osi-richbach:a05898aa2929326e2ccecac57b80f4aeefcec3bd";
     String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
 
     get.setRequestProperty ("Authorization", basicAuth);
