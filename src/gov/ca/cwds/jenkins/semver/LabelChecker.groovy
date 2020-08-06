@@ -37,7 +37,7 @@ class LabelChecker {
     script.echo "have the json"
     def labels = json*.name
     script.echo("****The labels are")
-    script.echo(labels)
+    script.echo(labels.getClass().getName())
     script.echo("****The labels are")
     labels
   }
