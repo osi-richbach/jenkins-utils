@@ -24,7 +24,7 @@ class LabelChecker {
 
 
     def get = new URL("https://api.github.com/repos/ca-cwds/${projectName}/issues/${script.env.ghprbPullId}/labels").openConnection();
-    get.setRequestProperty ("Authorization", "token: accf1d7851696c1d542d0bf3b1f18d06fe997356")
+    get.setRequestProperty ("Authorization", "token: 95bc969a8a27b7c8987e6bb82e164e61e35f6cbd")
     script.echo "******************I AM HERE"
     def response = get.getInputStream().getText()
     script.echo( response )
