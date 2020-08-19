@@ -10,7 +10,7 @@ class Docker {
   }
 
   def createTestingImage(String pathToDockerfile, BuildMetadata buildMetadata) {
-    script.docker.build("${testingImageName(buildMetadata)}", "-f ${pathToDockerfile} .")
+    script.docker.build("${testingImageName(buildMetadata)}", "--build-arg GITHUB_TOKEN=${buildMetadata.githubToken} -f ${pathToDockerfile} .")
   }
 
   def removeTestingImage(BuildMetadata buildMetadata) {
